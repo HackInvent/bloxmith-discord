@@ -1,0 +1,213 @@
+[
+  {
+    "key": "enabled",
+    "type": "boolean",
+    "label": "Enable remote access",
+    "help": "Off by default. While off, no request reaches Discord and the wallet is never read."
+  },
+  {
+    "key": "secret_ref",
+    "label": "Bot token secret",
+    "placeholder": "secret://workspace/discord_bot",
+    "help": "Wallet reference holding the bot token from the Discord Developer Portal. Needed to send, read, react, upload and watch. Never the token itself."
+  },
+  {
+    "key": "webhook_secret_ref",
+    "label": "Webhook URL secret",
+    "placeholder": "secret://workspace/discord_webhook",
+    "help": "Optional wallet reference holding a channel webhook URL, for webhook_send notifications without a bot."
+  },
+  {
+    "key": "allowed_channels",
+    "type": "json",
+    "rows": 2,
+    "label": "Allowed channel IDs",
+    "help": "JSON array of channel IDs the bot may use, for example [\"1234567890123456789\"]. Required with a bot token. Copy an ID with Developer Mode on."
+  },
+  {
+    "key": "default_channel",
+    "label": "Default channel ID",
+    "placeholder": "1234567890123456789",
+    "help": "Used when a request gives no channel_id; it must be in the allowed list."
+  },
+  {
+    "key": "default_operation",
+    "type": "select",
+    "options": [
+      "send_message",
+      "webhook_send"
+    ],
+    "label": "Plain text sends with",
+    "help": "Operation used for plain text and for JSON without operation: the bot (send_message) or the webhook (webhook_send)."
+  },
+  {
+    "key": "mentions",
+    "type": "select",
+    "options": [
+      "none",
+      "users",
+      "users_roles",
+      "all"
+    ],
+    "label": "Mentions",
+    "help": "Who may be pinged. none: nobody; users: mentioned users; users_roles: users and roles; all: also @everyone and @here."
+  },
+  {
+    "key": "allow_writes",
+    "type": "boolean",
+    "label": "Allow writes",
+    "help": "Off by default. Required to send, edit, react, upload and use the webhook."
+  },
+  {
+    "key": "allow_delete",
+    "type": "boolean",
+    "group": "write",
+    "label": "Allow delete",
+    "help": "Separate switch for delete_message. Discord has no recycle bin: a deleted message cannot be restored."
+  },
+  {
+    "key": "file_root",
+    "type": "directory",
+    "group": "write",
+    "label": "Upload folder",
+    "help": "Only files inside this folder can be uploaded from the file input."
+  },
+  {
+    "key": "max_file_bytes",
+    "type": "integer",
+    "min": 1024,
+    "max": 104857600,
+    "group": "write",
+    "label": "Upload size limit (bytes)",
+    "help": "Larger files are refused before anything is sent. Discord allows 10 MiB on servers without boosts."
+  },
+  {
+    "key": "read_limit",
+    "type": "integer",
+    "min": 1,
+    "max": 1000,
+    "label": "Messages per read (max)",
+    "help": "Upper bound for one read_messages; a request limit can only lower it."
+  },
+  {
+    "key": "watch",
+    "type": "boolean",
+    "label": "Watch channels",
+    "help": "In Active Runtime, poll the channels for new messages and emit them on messages. One Shot polls once per watch request."
+  },
+  {
+    "key": "watch_channels",
+    "type": "json",
+    "rows": 2,
+    "group": "watch",
+    "label": "Watched channel IDs",
+    "help": "JSON array, a subset of the allowed channels. Empty watches every allowed channel (at most 20)."
+  },
+  {
+    "key": "watch_interval_sec",
+    "type": "integer",
+    "min": 10,
+    "max": 86400,
+    "group": "watch",
+    "label": "Poll interval (s)",
+    "help": "At least 10 seconds between two polls of the Run listener."
+  },
+  {
+    "key": "emit_existing",
+    "type": "boolean",
+    "group": "watch",
+    "label": "Emit recent messages on first start",
+    "help": "Off: the first start only records the newest message. On: messages of the window below are emitted once, in bounded polls."
+  },
+  {
+    "key": "existing_since_hours",
+    "type": "integer",
+    "min": 1,
+    "max": 168,
+    "group": "watch",
+    "label": "Recent window (hours)",
+    "help": "How far back the first start looks when Emit recent messages is on."
+  },
+  {
+    "key": "watch_max_items",
+    "type": "integer",
+    "min": 1,
+    "max": 1000,
+    "group": "watch",
+    "label": "Messages per poll (max)",
+    "help": "More messages wait for the next poll; none is skipped."
+  },
+  {
+    "key": "watch_include_bots",
+    "type": "boolean",
+    "group": "watch",
+    "label": "Include bot and webhook messages",
+    "help": "Off by default, so the block never reacts to its own messages."
+  },
+  {
+    "key": "page_size",
+    "type": "integer",
+    "min": 1,
+    "max": 100,
+    "advanced": true,
+    "label": "Messages per page",
+    "help": "limit sent with each read of channel messages, at most 100 (Discord's maximum)."
+  },
+  {
+    "key": "max_pages",
+    "type": "integer",
+    "min": 1,
+    "max": 20,
+    "advanced": true,
+    "label": "Pages per read (max)",
+    "help": "Pages per read, and per channel in a watch poll."
+  },
+  {
+    "key": "timeout_sec",
+    "type": "integer",
+    "min": 5,
+    "max": 300,
+    "advanced": true,
+    "label": "Operation deadline (s)",
+    "help": "Total time for one request or poll, pages, rate-limit waits and retries included."
+  },
+  {
+    "key": "max_retries",
+    "type": "integer",
+    "min": 0,
+    "max": 5,
+    "advanced": true,
+    "label": "Retries",
+    "help": "Reads retry after HTTP 429, 5xx or a lost connection; writes only after HTTP 429."
+  },
+  {
+    "key": "max_retry_wait_sec",
+    "type": "integer",
+    "min": 1,
+    "max": 120,
+    "advanced": true,
+    "label": "Longest rate-limit wait (s)",
+    "help": "A retry_after or bucket reset above this value returns rate_limited instead of waiting."
+  },
+  {
+    "key": "max_response_bytes",
+    "type": "integer",
+    "min": 65536,
+    "max": 33554432,
+    "advanced": true,
+    "label": "Response size limit (bytes)",
+    "help": "Larger Discord responses are refused as protocol errors."
+  },
+  {
+    "key": "api_base_url",
+    "advanced": true,
+    "label": "Discord API origin",
+    "help": "Keep https://discord.com. Another origin receives the token; plain HTTP only for a loopback test host."
+  },
+  {
+    "key": "ca_file",
+    "advanced": true,
+    "label": "Custom CA file",
+    "help": "Optional absolute PEM file for a privately signed HTTPS origin. TLS verification cannot be disabled."
+  }
+]

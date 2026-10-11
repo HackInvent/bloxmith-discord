@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "discord",
+  "block_version": "0.1.0",
+  "maintained_by": "HackInvent",
+  "source": {
+    "algorithm": "block-source-v1",
+    "sha256": "73fceec193d4b64684b652c986ca045dcfc2fe38d6c306087fe424f0006b1701"
+  },
+  "bloxsmith_compatibility": [
+    "1.0.9"
+  ],
+  "tested_with_bloxsmith": "1.0.9",
+  "validations": [
+    {
+      "bloxsmith_version": "1.0.9",
+      "framework_commit": "f1a87f6369d2acfb8be41d23ea849384cd461c86",
+      "framework_source_sha256": "66e36a13fd9a23a0a0576ec81552d6e479671db6db9b8692cc7486c5aac4f3b8",
+      "tested_at": "2026-10-11T12:55:43.981157+00:00",
+      "status": "passed",
+      "installation_mode": "bundled",
+      "suite_paths": [
+        "tests/F5.01_discord.py",
+        "tests/F5.02_discord_runtime.py",
+        "tests/F8.01_discord_ui.py"
+      ],
+      "suite_count": 3,
+      "report_sha256": "f2aff314e50d3e34c0f494eb78d7b5d272dd46fdb6f4634b55bc4bbf002a4e4c"
+    }
+  ]
+}
